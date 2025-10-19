@@ -1,4 +1,4 @@
-import { Body, Controller, Get, NotFoundException, Post } from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { HomeService } from './home.service';
 import { HomeDto } from './dtos/create-home.dto';
 
@@ -24,5 +24,18 @@ export class HomeController {
     const data = await this.homeService.createHomeData(body);
 
     return data;
+  }
+
+
+
+  @Get('/:id')
+  async getProduct(@Param('id') id: string){
+    const product = await this.homeService.findProduct(id)
+
+    if (!product) {
+      throw new NotFoundException(`Product with id ${id} not found`);
+    }
+
+    return product;
   }
 }

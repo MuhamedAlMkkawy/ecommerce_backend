@@ -1,4 +1,4 @@
-import { Body, Injectable } from '@nestjs/common';
+import { Body, Injectable, Param, ParseIntPipe } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import {HomeEnitiy} from '../home/entities/home.entity'
@@ -28,4 +28,13 @@ export class HomeService {
     }
   }
 
+
+  async findProduct(id:string){
+    const product = await this.repo.findOne({ where: { id } });
+    return {
+      status : 'success',
+      message : 'Data Sent Successfully',
+      data : product
+    }
+  }
 }
