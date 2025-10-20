@@ -1,12 +1,22 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { 
+  Body, 
+  Controller, 
+  Delete, 
+  Get, 
+  Param, 
+  ParseIntPipe, 
+  Patch, 
+  Post 
+} from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dtos/create-product.dto';
+import { UpdateProductDto } from './dtos/update-product.dto';
 
 @Controller('products')
 export class ProductsController {
   constructor(private productService:ProductsService ){}
 
-  // GET PRODUCTS
+  // ==============> GET PRODUCTS
   @Get()
   async getProducts (){
     const products = await this.productService.getProducts()
@@ -16,7 +26,7 @@ export class ProductsController {
 
 
 
-  // GET PRODUCT
+  // ==============> GET PRODUCT
   @Get("/:id")
   async getProduct (@Param('id' , ParseIntPipe) id:number){
     const product = await this.productService.getProduct(id)
@@ -25,7 +35,7 @@ export class ProductsController {
   }
 
 
-  // POST PRODUCT
+  // ==============> POST PRODUCT
   @Post()
   async addProduct (@Body() body:CreateProductDto ){
     const product = await this.productService.addProduct(body);
@@ -33,12 +43,24 @@ export class ProductsController {
   }
 
 
-  // UPDATE PRODUCT
+  // ==============> UPDATE PRODUCT
+  @Patch(':id')
+  async updateProduct (@Param('id' , ParseIntPipe) id: number  , @Body() body: UpdateProductDto) {
+    
+    const product = await this.productService.updateProduct(id , body)
+
+    return product;
+
+  }
 
 
 
+  // ==============> DELETE PRODUCT
 
+  @Delete('/:id')
+  async deleteProduct (@Param('id' , ParseIntPipe) id : number){
+    const product = await this.productService.deleteProduct(id)
 
-  // DELETE PRODUCT
-
+    return product;
+  }
 }
