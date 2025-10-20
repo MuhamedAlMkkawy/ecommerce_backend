@@ -8,7 +8,13 @@ import { AllExceptionsFilter } from './filters/all-exceptions.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+  app.useGlobalPipes(new ValidationPipe(
+    {
+      transform : true , 
+      whitelist: true ,
+      forbidNonWhitelisted: true
+    }
+  ));
 
   // TO MAKE TIMEOUT FOR THE SERVER REQUEST
   app.useGlobalInterceptors(new TimeoutInterceptor());

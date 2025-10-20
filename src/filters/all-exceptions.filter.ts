@@ -35,13 +35,12 @@ export class AllExceptionsFilter implements ExceptionFilter {
         }
       }
     }
-
     response.status(status).json({
-      // statusCode : 404,
+      code : status,
       status: 'error',
       message,
       // path: request.url,
-      // timestamp: new Date().toISOString(),
+      timestamp: new Date().toISOString(),
     });
   }
 }

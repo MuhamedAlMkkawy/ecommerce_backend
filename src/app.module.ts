@@ -5,6 +5,7 @@ import { HomeModule } from './home/home.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HomeEnitiy } from './home/entities/home.entity';
 import { ProductsModule } from './products/products.module';
+import { ProductsEntity } from './products/entities/products.entities';
 
 
 @Module({
@@ -12,7 +13,7 @@ import { ProductsModule } from './products/products.module';
     TypeOrmModule.forRoot({
       type : 'sqlite',
       database : 'db.sqlite',
-      entities : [HomeEnitiy],
+      entities : [HomeEnitiy , ProductsEntity],
       synchronize : true
     }),
     HomeModule,

@@ -23,17 +23,35 @@ export class ProductsService {
 
 
   // GET PRODUCT
+  async getProduct (id : number){
+    const product = await this.repo.findOneBy({id});
 
+  
+    if(!product){
+      throw new NotFoundException("Product You looked for isn't Found 😥")
+    }
+    
+    return product
+  }
 
 
 
   // POST PRODUCT
-  async addProduct(@Body() body : CreateProductDto){
-    const addedproduct = this.repo.create(body);
-    const product = await this.repo.save(addedproduct)
-
-    
-    return product
+  async addProduct(body:CreateProductDto){
+    try{
+      const addedproduct = this.repo.create(body);
+      const product = await this.repo.save(addedproduct)
+  
+      if(!product){
+        throw new NotFoundException("Product You looked for isn't Found 😥")
+      }
+      
+      return product
+    } 
+    catch(error) {
+      console.error(error);
+      throw error;
+    }
   }
 
 
