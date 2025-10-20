@@ -28,14 +28,14 @@ export class HomeController {
 
 
 
-  @Get('/:id')
-  async getProduct(@Param('id') id: string){
-    const product = await this.homeService.findProduct(id)
+  // @Get('/:id')
+  // async getProduct(@Param('id') id: string){
+  //   const product = await this.homeService.findProduct(id)
 
-    if (!product) {
-      throw new NotFoundException(`Product with id ${id} not found`);
-    }
+  //   if (!product) {
+  //     throw new NotFoundException(`Product with id ${id} not found`);
+  //   }
 
-    return product;
-  }
+  //   return product;
+  // }
 }

@@ -15,6 +15,9 @@ class AboutUsDto {
 
 
 class ProductsDto {
+  @IsNumber()
+  id : number
+
   @IsArray({ message: 'Images must be an array' })
   @IsString({ each: true, message: 'Each image must be a string' })
   images: string[];

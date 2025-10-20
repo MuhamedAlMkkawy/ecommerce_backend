@@ -17,6 +17,7 @@ export class HomeEnitiy {
 
   @Column("json", { array: true })
   products : Array<{
+    id:number,
     title : string,
     text : string,
     rating : number,

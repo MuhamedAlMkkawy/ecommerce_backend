@@ -21,20 +21,13 @@ export class HomeService {
   async createHomeData(@Body() body: HomeDto){
     const home = this.repo.create(body);
     const savedData = await this.repo.save(home);
-    return {
-      status : 'success',
-      message : 'Data Sent Successfully',
-      data : savedData
-    }
+
+    return savedData
   }
 
 
-  async findProduct(id:string){
-    const product = await this.repo.findOne({ where: { id } });
-    return {
-      status : 'success',
-      message : 'Data Sent Successfully',
-      data : product
-    }
+  async findProduct(@Param('id') id:string){
+    const product = await this.repo.findOneBy({id});
+    return product 
   }
 }
