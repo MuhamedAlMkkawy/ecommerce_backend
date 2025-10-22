@@ -69,8 +69,6 @@ export class AuthService {
     const hash = (await scrypt(password , salt , 32)) as Buffer;
     
     
-    console.log(hash.toString('hex'))
-    console.log(storedHash)
     if (hash.toString('hex') !== storedHash) {
       throw new NotFoundException('Please Check the information you Entered')
     }
