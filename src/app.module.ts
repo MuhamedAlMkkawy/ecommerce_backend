@@ -9,7 +9,8 @@ import { ProductsEntity } from './products/entities/products.entities';
 import { CartModule } from './cart/cart.module';
 import { CartEntity } from './cart/entities/cart.entities';
 import { AuthModule } from './auth/auth.module';
-import { AuthEntity } from './auth/entities/auth.entities';
+import { UserModule } from './user/user.module';
+import { UserEntity } from './user/entities/user.entities';
 
 
 @Module({
@@ -17,13 +18,14 @@ import { AuthEntity } from './auth/entities/auth.entities';
     TypeOrmModule.forRoot({
       type : 'sqlite',
       database : 'db.sqlite',
-      entities : [HomeEnitiy , ProductsEntity , AuthEntity ,CartEntity , AuthEntity],
+      entities : [HomeEnitiy , ProductsEntity ,CartEntity , UserEntity],
       synchronize : true
     }),
     HomeModule,
     ProductsModule,
     CartModule,
-    AuthModule
+    AuthModule,
+    UserModule
   ],
   controllers: [AppController],
   providers: [AppService],

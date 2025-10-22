@@ -1,4 +1,4 @@
-import { IsEmail, IsString } from "class-validator";
+import { IsEmail, IsString, Matches } from "class-validator";
 
 export class LoginDto {
   @IsEmail()
@@ -7,5 +7,7 @@ export class LoginDto {
 
 
   @IsString()
+  @Matches(/^\d+|\D+\d*/)
+
   password : string
 }

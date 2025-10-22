@@ -1,16 +1,18 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { SignupDto } from './dtos/signup.dtos';
+import { Body, Controller, Post, UseInterceptors } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { Serialize } from 'src/interceptors/dataSerializor.interceptor';
 import { LoginDto } from './dtos/login.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Serialize } from 'src/interceptors/dataSerializor.interceptor';
+import { UserResponceDto } from 'src/user/dtos/user.dto';
 
 @Controller('auth')
-@Serialize(SignupDto)
+@UseInterceptors(FileInterceptor(''))
+@Serialize(UserResponceDto)
 export class AuthController {
   constructor(private authService : AuthService){}
-
-
-
+  
+  
+  
   // =============== > SIGNUP
   @Post('/signup')
   async signup (@Body() body : any) {
@@ -25,7 +27,7 @@ export class AuthController {
 
   // =============== > LOGIN
   @Post('/login')
-  async login(@Body() body : any){
+  async login(@Body() body : LoginDto){
     const {email , password} = body
     const user = await this.authService.login(email , password)
 

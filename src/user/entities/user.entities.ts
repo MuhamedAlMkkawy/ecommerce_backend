@@ -2,17 +2,15 @@ import { Exclude } from "class-transformer";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class AuthEntity{
+export class UserEntity {
   @PrimaryGeneratedColumn()
   id : number
-
-
-  @Column()
-  image : string
 
   @Column()
   name : string
 
+  @Column()
+  image : string
 
   @Column()
   email : string
@@ -21,8 +19,5 @@ export class AuthEntity{
   @Column()
   password : string
 
-
-  @Exclude()
-  @Column()
-  confirmPassword : string
+  
 }
