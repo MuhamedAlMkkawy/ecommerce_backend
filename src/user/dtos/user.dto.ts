@@ -9,10 +9,12 @@ export class UserResponceDto{
   name: string;
 
   @Expose()
+  token : string
+
+  @Expose()
   image: string;
 
   @Expose()
   email: string;
 
-  // Password is NOT exposed, so it won't be in response
 }

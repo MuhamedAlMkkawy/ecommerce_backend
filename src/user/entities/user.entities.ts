@@ -1,4 +1,3 @@
-import { Exclude } from "class-transformer";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -12,12 +11,16 @@ export class UserEntity {
   @Column()
   image : string
 
-  @Column()
-  email : string
+  @Column({ unique: true }) // Add unique constraint
+  email: string;
 
-  @Exclude()
+  @Column({ type: 'text', nullable: true }) // Make token nullable and text type
+  token: string;
+
+
   @Column()
   password : string
 
   
 }
+

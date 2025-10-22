@@ -11,6 +11,7 @@ import { CartEntity } from './cart/entities/cart.entities';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { UserEntity } from './user/entities/user.entities';
+import { ConfigModule } from '@nestjs/config';
 
 
 @Module({
@@ -20,6 +21,10 @@ import { UserEntity } from './user/entities/user.entities';
       database : 'db.sqlite',
       entities : [HomeEnitiy , ProductsEntity ,CartEntity , UserEntity],
       synchronize : true
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true, // Makes ConfigModule available globally
+      envFilePath: '.env',
     }),
     HomeModule,
     ProductsModule,

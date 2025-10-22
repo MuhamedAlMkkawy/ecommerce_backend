@@ -4,6 +4,7 @@ import { LoginDto } from './dtos/login.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Serialize } from 'src/interceptors/dataSerializor.interceptor';
 import { UserResponceDto } from 'src/user/dtos/user.dto';
+import { SignupDto } from './dtos/signup.dtos';
 
 @Controller('auth')
 @UseInterceptors(FileInterceptor(''))
@@ -15,7 +16,7 @@ export class AuthController {
   
   // =============== > SIGNUP
   @Post('/signup')
-  async signup (@Body() body : any) {
+  async signup (@Body() body : SignupDto) {
     const user = await this.authService.signup(body)
 
 
