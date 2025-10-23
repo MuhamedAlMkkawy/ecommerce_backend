@@ -5,6 +5,7 @@ import { TimeoutInterceptor } from './interceptors/timeout.interceptor';
 import { ResponseInterceptor } from './interceptors/response.interceptor';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
 
+const cookieSession = require('cookie-session')
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -24,6 +25,12 @@ async function bootstrap() {
 
   // 👇 Filter لتوحيد رسائل الخطأ
   app.useGlobalFilters(new AllExceptionsFilter());
+
+  // TO MAKE THE APP USE THE COOKIE SESSIONS
+  app.use(cookieSession({
+    keys : ['userToken']
+  }));
+
 
   
   await app.listen(3000);

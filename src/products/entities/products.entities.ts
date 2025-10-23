@@ -1,11 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { CartEntity } from 'src/cart/entities/cart.entities';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, ManyToOne } from 'typeorm';
 
-@Entity('products') // optional: naming the table explicitly
+@Entity('products')
 export class ProductsEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // ✅ simple-array stores comma-separated strings internally
   @Column('simple-array')
   images: string[];
 
@@ -35,4 +35,8 @@ export class ProductsEntity {
 
   @Column({ type: 'float', nullable: true })
   priceAfterDiscount: number;
+
+  // Many to One relationship with Cart
+  @ManyToOne(() => CartEntity, cart => cart.products)
+  carts: CartEntity;
 }

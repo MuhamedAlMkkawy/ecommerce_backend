@@ -1,10 +1,11 @@
-import { Body, Controller, Post, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Post, Session, UseInterceptors } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dtos/login.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Serialize } from 'src/interceptors/dataSerializor.interceptor';
 import { UserResponceDto } from 'src/user/dtos/user.dto';
 import { SignupDto } from './dtos/signup.dtos';
+import { CurrentUserInterceptor } from 'src/user/interceptors/current_user.interceptor';
 
 @Controller('auth')
 @UseInterceptors(FileInterceptor(''))
@@ -28,10 +29,11 @@ export class AuthController {
 
   // =============== > LOGIN
   @Post('/login')
-  async login(@Body() body : LoginDto){
+  @UseInterceptors(CurrentUserInterceptor)
+  async login(@Body() body : LoginDto , @Session() session : any){
     const {email , password} = body
     const user = await this.authService.login(email , password)
-
+    session.userToken = user.token;
     return user;
   }
 }

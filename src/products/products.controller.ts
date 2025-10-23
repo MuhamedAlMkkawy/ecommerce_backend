@@ -37,8 +37,7 @@ export class ProductsController {
 
   // ==============> POST PRODUCT
   @Post()
-  async addProduct (@Body() body:any ){
-    console.log(body)
+  async addProduct (@Body() body:CreateProductDto ){
     const product = await this.productService.addProduct(body);
     return product;
   }

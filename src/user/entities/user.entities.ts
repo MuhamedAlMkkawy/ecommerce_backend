@@ -1,26 +1,24 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Exclude } from 'class-transformer';
+import { CartEntity } from '../../cart/entities/cart.entities';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class UserEntity {
   @PrimaryGeneratedColumn()
-  id : number
+  id: number;
 
   @Column()
-  name : string
+  name: string;
 
   @Column()
-  image : string
-
-  @Column({ unique: true }) // Add unique constraint
   email: string;
 
-  @Column({ type: 'text', nullable: true }) // Make token nullable and text type
+  @Column({ nullable: true })
   token: string;
 
-
   @Column()
-  password : string
+  password: string;
 
-  
+  @OneToOne(() => CartEntity, cart => cart.user)
+  cart: CartEntity;
 }
-
