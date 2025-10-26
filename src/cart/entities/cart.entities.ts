@@ -1,3 +1,4 @@
+import { Transform } from "class-transformer";
 import { ProductsEntity } from "src/products/entities/products.entities";
 import { UserEntity } from "src/user/entities/user.entities";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, ManyToMany, JoinTable } from "typeorm";
@@ -12,7 +13,7 @@ export class CartEntity {
   user: UserEntity;
 
 
-  @OneToMany(() => ProductsEntity, product => product.carts)
-  @JoinColumn()
+  @ManyToMany(() => ProductsEntity)
+  @JoinTable()
   products: ProductsEntity[];
 }

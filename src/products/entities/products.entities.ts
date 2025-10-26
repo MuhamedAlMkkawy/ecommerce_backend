@@ -36,7 +36,7 @@ export class ProductsEntity {
   @Column({ type: 'float', nullable: true })
   priceAfterDiscount: number;
 
-  // Many to One relationship with Cart
-  @ManyToOne(() => CartEntity, cart => cart.products)
-  carts: CartEntity;
+  // // Many to One relationship with Cart
+  // @ManyToMany(() => CartEntity, cart => cart.products)
+  // carts: CartEntity[];
 }

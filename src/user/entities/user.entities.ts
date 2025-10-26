@@ -19,6 +19,6 @@ export class UserEntity {
   @Column()
   password: string;
 
-  @OneToOne(() => CartEntity, cart => cart.user)
-  cart: CartEntity;
+  @OneToOne(() => CartEntity, (cart) => cart.user, { cascade: true })
+  cart: CartEntity[]; 
 }
