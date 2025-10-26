@@ -32,9 +32,6 @@ export class CartService {
       relations : [ 'user' ,'products'] 
     })
 
-    console.log('###########')
-    console.log(userCart)
-    console.log('###########')
     if(!userCart) {
       throw new NotFoundException('No Products in Cart Yet!!!')
     }

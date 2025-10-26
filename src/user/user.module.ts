@@ -5,8 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from './entities/user.entities';
 import { CartEntity } from 'src/cart/entities/cart.entities';
 import { ProductsEntity } from 'src/products/entities/products.entities';
-import { CartModule } from 'src/cart/cart.module';
-import { ProductsModule } from 'src/products/products.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   exports : [UserService],
@@ -14,6 +13,7 @@ import { ProductsModule } from 'src/products/products.module';
   providers: [UserService],
   imports : [
     TypeOrmModule.forFeature([UserEntity , CartEntity , ProductsEntity]) , 
+    JwtModule
   ]
 })
 export class UserModule {}

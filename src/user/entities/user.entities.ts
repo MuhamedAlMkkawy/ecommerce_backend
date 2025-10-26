@@ -7,6 +7,9 @@ export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({ nullable: true })
+  image?: string;
+  
   @Column()
   name: string;
 
@@ -18,6 +21,9 @@ export class UserEntity {
 
   @Column()
   password: string;
+
+  @Column({nullable : true})
+  confirmPassword : string
 
   @OneToOne(() => CartEntity, (cart) => cart.user, { cascade: true })
   cart: CartEntity[]; 

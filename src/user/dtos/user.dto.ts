@@ -1,7 +1,6 @@
 import { Expose } from "class-transformer";
 
 export class UserResponceDto{
-
   @Expose()
   id: number;
 
