@@ -18,7 +18,7 @@ import { ConfigModule } from '@nestjs/config';
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
-      database: ':memory:',
+      database: 'database.sqlite',
       autoLoadEntities: true,
       synchronize: true,
       entities : [HomeEnitiy , ProductsEntity ,CartEntity , UserEntity],
