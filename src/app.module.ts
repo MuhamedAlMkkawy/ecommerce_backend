@@ -12,6 +12,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { UserEntity } from './user/entities/user.entities';
 import { ConfigModule } from '@nestjs/config';
+import { UploadModule } from './upload/upload.module';
 
 
 @Module({
@@ -31,7 +32,8 @@ import { ConfigModule } from '@nestjs/config';
     ProductsModule,
     CartModule,
     AuthModule,
-    UserModule
+    UserModule,
+    UploadModule
   ],
   controllers: [AppController],
   providers: [

@@ -38,14 +38,24 @@ export class ProductsService {
 
 
   // ======================> POST PRODUCT
-  async addProduct(body:CreateProductDto){
+  async addProduct(body:CreateProductDto , files?: Express.Multer.File[]){
     try{
-      const addedproduct = this.repo.create(body);
-      const product = await this.repo.save(addedproduct)
-  
-      if(!product){
-        throw new NotFoundException("Product You looked for isn't Found 😥")
+      // Convert uploaded files to URLs
+      const images = files?.length
+        ? files.map((file) => `/uploads/${file.filename}`)
+        : ['/uploads/default.png']; // fallback if no images
+
+      const addedProduct = this.repo.create({
+        ...body,
+        images, // ✅ store URLs
+      });
+
+      const product = await this.repo.save(addedProduct);
+
+      if (!product) {
+        throw new NotFoundException("Product you looked for isn't found 😥");
       }
+
       
       return product
     } 
@@ -57,7 +67,7 @@ export class ProductsService {
 
 
   // ======================> UPDATE PRODUCT
-  async updateProduct (id : number, body : UpdateProductDto){
+  async updateProduct (id : number, body : UpdateProductDto , files?: Express.Multer.File[]){
     try{
       const exisitingProduct = this.repo.findOneBy({id})
 
@@ -65,12 +75,17 @@ export class ProductsService {
         throw new NotFoundException("Product You looked for isn't Found 💔")
       }
 
-      
-      const product = await this.repo.update(id, body)
+      const images = files?.length
+        ? files.map((file) => `/uploads/${file.filename}`)
+        : undefined; // keep existing images if no new files
 
-      return {
-        product
-      };
+      if (images) {
+        body.images = images; // update images only if new files are uploaded
+      }
+      
+      await this.repo.update(id, body)
+      const product = await this.repo.findOneBy({id})
+      return product
     }
     catch(error){
       console.error(error)

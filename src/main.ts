@@ -4,7 +4,8 @@ import { ValidationPipe } from '@nestjs/common';
 import { TimeoutInterceptor } from './interceptors/timeout.interceptor';
 import { ResponseInterceptor } from './interceptors/response.interceptor';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
-
+import * as express from 'express';
+import { join } from 'path';
 const cookieSession = require('cookie-session')
 
 async function bootstrap() {
@@ -31,7 +32,8 @@ async function bootstrap() {
     keys : ['userToken']
   }));
 
-
+  // Serve uploaded files
+  app.use('/uploads', express.static(join(__dirname, '..', 'uploads')));
   
   await app.listen(3000);
 }
