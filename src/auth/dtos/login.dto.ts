@@ -1,4 +1,4 @@
-import { IsString, Matches } from "class-validator";
+import { IsString, Matches, Min } from "class-validator";
 
 export class LoginDto {
   @IsString()
@@ -7,6 +7,5 @@ export class LoginDto {
 
 
   @IsString()
-  @Matches(/^\d+|\D+\d*/)
   password : string
 }

@@ -2,20 +2,14 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './entities/user.entities';
 import { Repository } from 'typeorm';
-import { randomBytes } from 'crypto';
-import { promisify } from 'util';
-import * as crypto from 'crypto';
-import { JwtService } from '@nestjs/jwt';
 import { UpdateProfileDto } from './dtos/update_profile.dto';
 
-const scrypt = promisify(crypto.scrypt);
 
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserEntity) private repo : Repository<UserEntity>,
-    private jwtService : JwtService
   ){}
 
 
