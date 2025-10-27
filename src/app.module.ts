@@ -17,10 +17,11 @@ import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type : 'sqlite',
-      database : 'db.sqlite',
+      type: 'sqlite',
+      database: ':memory:',
+      autoLoadEntities: true,
+      synchronize: true,
       entities : [HomeEnitiy , ProductsEntity ,CartEntity , UserEntity],
-      synchronize : true
     }),
     ConfigModule.forRoot({
       isGlobal: true, // Makes ConfigModule available globally
