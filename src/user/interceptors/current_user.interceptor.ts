@@ -10,7 +10,7 @@ export class CurrentUserInterceptor implements NestInterceptor {
       // Attach user to request object for further use
       request.userToken = userToken;
     }
-    console.log('CurrentUserInterceptor executed. UserToken:', userToken);
+    // console.log('CurrentUserInterceptor executed. UserToken:', userToken);
     return next.handle()
   }
 }

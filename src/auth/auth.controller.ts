@@ -41,8 +41,13 @@ export class AuthController {
   
   // =============== > LOGOUT
   @Post('/logout')
-  async logout(@Session() session : any){
-    session.userToken = null;
-    return {message : 'Logged Out Successfully'}
+  async logout(@Session() session: any) {
+    delete session.userToken;
+
+    return {
+      status: 'success',
+      message: 'Logged Out Successfully',
+      data: null
+    };
   }
 }

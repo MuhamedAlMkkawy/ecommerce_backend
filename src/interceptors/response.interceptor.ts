@@ -12,7 +12,7 @@ export class ResponseInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request = context.switchToHttp().getRequest();
 
-    // Extract pagination info from query params (or use defaults)
+    // Extract pagination info from query (or use defaults)
     const page = parseInt(request.query.page, 10) || 1;
     const limit = parseInt(request.query.limit, 10) || 15;
 

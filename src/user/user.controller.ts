@@ -1,14 +1,16 @@
-import { BadRequestException, Body, Controller, Delete, Get, Headers, NotFoundException, Patch, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Headers, NotFoundException, Patch, UseGuards, UseInterceptors } from '@nestjs/common';
 import { UserService } from './user.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Serialize } from 'src/interceptors/dataSerializor.interceptor';
 import { UserResponceDto } from './dtos/user.dto';
 import { plainToClass } from 'class-transformer';
 import { UpdateProfileDto } from './dtos/update_profile.dto';
+import { AuthGuard } from 'src/guards/auth.guard';
 
 @Controller('/profile')
 @UseInterceptors(FileInterceptor(''))
 @Serialize(UserResponceDto)
+@UseGuards(AuthGuard)
 export class UserController {
   constructor(private userService : UserService){}
 
