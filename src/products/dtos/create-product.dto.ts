@@ -4,8 +4,6 @@ import { Type } from "class-transformer";
 export class CreateProductDto {
 
   @IsArray()
-  // @ValidateNested()
-  // @Type(() => String)
   images: string[];
 
   @IsString()
@@ -14,27 +12,29 @@ export class CreateProductDto {
   @IsString()
   text: string;
 
+  @Type(() => Number)
   @IsNumber()
   @Min(1)
   rating: number;
-
+  
   @IsArray()
-  // @ValidateNested()
-  // @Type(() => String)
   sizes: string[];
-
+  
+  @Type(() => Boolean)
   @IsBoolean()
   isAvailable: boolean;
-
+  
+  @Type(() => Boolean)
   @IsBoolean()
   hasDiscount: boolean;
 
+  @Type(() => Number)
   @IsNumber()
   @Min(0)
   discount: number;
 
+  @Type(() => Number)
   @IsNumber()
-  @Min(0)
   price: number;
 
   @Type(() => Number)

@@ -6,13 +6,20 @@ import {
   Param, 
   ParseIntPipe, 
   Patch, 
-  Post 
+  Post, 
+  UseGuards, 
+  UseInterceptors
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dtos/create-product.dto';
 import { UpdateProductDto } from './dtos/update-product.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { plainToClass } from 'class-transformer';
+import { AuthGuard } from 'src/guards/auth.guard';
 
 @Controller('products')
+@UseInterceptors(FileInterceptor(''))
+@UseGuards(AuthGuard)
 export class ProductsController {
   constructor(private productService:ProductsService ){}
 
@@ -37,17 +44,18 @@ export class ProductsController {
 
   // ==============> POST PRODUCT
   @Post()
-  async addProduct (@Body() body:CreateProductDto ){
-    const product = await this.productService.addProduct(body);
+  async addProduct (@Body() body:any ){
+    const bodyData = plainToClass(CreateProductDto, body);
+    const product = await this.productService.addProduct(bodyData);
     return product;
   }
 
 
   // ==============> UPDATE PRODUCT
   @Patch(':id')
-  async updateProduct (@Param('id' , ParseIntPipe) id: number  , @Body() body: UpdateProductDto) {
-    
-    const product = await this.productService.updateProduct(id , body)
+  async updateProduct (@Param('id' , ParseIntPipe) id: number  , @Body() body: any) {
+    const updatedBody = plainToClass(UpdateProductDto, body);
+    const product = await this.productService.updateProduct(id , updatedBody)
 
     return product;
 
